@@ -4,7 +4,7 @@ import { MdEmail, MdAccessTime, MdLocationOn, MdPhone } from 'react-icons/md';
 
 const Footer = () => {
   return (
-    <footer className="bg-teal-50 text-gray-800 pt-12 px-6 md:px-20">
+    <footer className="bg-teal-50 text-gray-800 pt-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
 
         {/* Brand */}
