@@ -2,14 +2,23 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import '../../CSS/nav.css'
 import '../../CSS/font.css'
+import useUserData from '../../Hooks/useUserData';
+import useAuth from '../../Hooks/useAuth';
 
 const routes = [
     {id: 1, name: "Home" , path: '/'},
-    {id: 1, name: "Events" , path: '/events'},
-    {id: 1, name: "Add Event" , path: '/add-event'},
-    {id: 1, name: "My Event" , path: '/my-event'}]
+    {id: 2, name: "Events" , path: '/events'},
+    {id: 3, name: "Add Event" , path: '/add-event'},
+    {id: 4, name: "My Event" , path: '/my-event'}]
 
 const Navbar = () => {
+    const userData= useUserData()
+
+    const { logout , user } = useAuth()
+
+    const handleLogout = () => {
+        logout()
+    }
 
     return (
         <div className='shadow'>
@@ -37,7 +46,21 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link to={'/login'} className="bg-teal-500 hover:bg-teal-700 text-white px-3 py-1.5 rounded-md font-medium transition duration-300">Sing In</Link>
+                    {
+                        user 
+                        ? 
+                        <>
+                        <div className="dropdown dropdown-bottom dropdown-end">
+                        <div tabIndex={0} role="button" className=""><img className='w-10 h-10 rounded-full' src={userData?.photoURL} alt={userData?.name}/></div>
+                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-36 p-2 shadow-sm">
+                            <li className='font-semibold mb-2'>Name: {userData?.name}</li>
+                            <li><button onClick={handleLogout} className='border flex items-center justify-center bg-teal-600 text-white font-semibold hover:bg-teal-700'>Sign Out</button></li>
+                        </ul>
+                        </div>
+                        </>
+                        :
+                        <Link to={'/login'} className="bg-teal-500 hover:bg-teal-700 text-white px-3 py-1.5 rounded-md font-medium transition duration-300">Sing In</Link>
+                    }
                 </div>
             </div>
         </div>

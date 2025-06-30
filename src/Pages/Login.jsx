@@ -1,9 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../Hooks/useAuth';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+  const { login } = useAuth()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -11,7 +15,32 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log('Login Data:', data);
+    const email = data.email 
+    const password = data.password 
+    login(email, password)
+    .then(() => {
+      Swal.fire({
+          title: 'Success!',
+          text: 'Login Successful',
+          icon: 'success',
+          confirmButtonText: 'Ok',
+          confirmButtonColor: '#009689'
+        }).then(()=> {
+          navigate(location?.state ? location?.state : '/');
+        })
+        
+             
+    })
+    .catch (error =>{
+    console.error( error)
+    Swal.fire({
+        title: 'Error!',
+        text: `${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'Try again',
+        confirmButtonColor: '#009689'
+        })
+    })
   };
 
   const handleGoogleLogin =  () => {

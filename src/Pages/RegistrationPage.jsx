@@ -1,17 +1,58 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../Hooks/useAuth';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const RegistrationPage = () => {
+  const { createUser } = useAuth()
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log('Registration Data:', data);
-   
+    const email = data.email 
+    const name = data.name 
+    const password = data.password 
+    const photoURL = data.photo
+    const userInfo = {name , email, photoURL}
+
+    createUser(email , password)
+    .then( ()=> {
+       axios.post('http://localhost:5000/add-user' , userInfo)
+        .then((res)=>{
+        // console.log(res.data);
+        if(res.data.insertedId){
+          Swal.fire({
+            title: 'Success!',
+            text: 'Registration Successful',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#009689'
+          }).then(()=> {
+             navigate('/')
+
+          }) 
+        }
+    })  
+
+    }).catch (error =>{
+      console.error( error)
+      Swal.fire({
+        title: 'Error!',
+        text: `${error.message}`,
+        icon: 'error',
+        confirmButtonText: 'Try again',
+        confirmButtonColor: '#009689'
+      })
+     })
+     reset()
   };
 
   return (
