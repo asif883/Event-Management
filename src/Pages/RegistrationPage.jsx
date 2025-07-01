@@ -25,7 +25,7 @@ const RegistrationPage = () => {
 
     createUser(email , password)
     .then( ()=> {
-       axios.post('http://localhost:5000/add-user' , userInfo)
+       axios.post('https://event-management-server-blond.vercel.app/add-user' , userInfo)
         .then((res)=>{
         // console.log(res.data);
         if(res.data.insertedId){

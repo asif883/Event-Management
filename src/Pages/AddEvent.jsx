@@ -22,7 +22,7 @@ const AddEvent = () => {
     };
 
     try {
-      const res = await axios.post('http://localhost:5000/add-event', eventData);
+      const res = await axios.post('https://event-management-server-blond.vercel.app/add-event', eventData);
       if (res.data.insertedId) {
          Swal.fire({
             title: 'Success!',

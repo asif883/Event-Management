@@ -9,7 +9,7 @@ const useUserData = () => {
         if(!user?.email) return
 
         const fetchData = () => {
-            axios.get(`http://localhost:5000/user/${user?.email}`)
+            axios.get(`https://event-management-server-blond.vercel.app/user/${user?.email}`)
             .then(res => {
                 setUserData(res.data)
             })

@@ -55,7 +55,7 @@ const Login = () => {
                 email,
                 photoURL
               }
-              axios.post('http://localhost:5000/add-user', userInfo)
+              axios.post('https://event-management-server-blond.vercel.app/add-user', userInfo)
               .then(() => {
                 Swal.fire({
                   title: 'Success!',

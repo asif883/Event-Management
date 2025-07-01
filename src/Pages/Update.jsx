@@ -19,7 +19,7 @@ const Update = () => {
             ...data
          }
          try {
-            const res = await axios.patch(`http://localhost:5000/update/${params?.id}`, updateData);
+            const res = await axios.patch(`https://event-management-server-blond.vercel.app/update/${params?.id}`, updateData);
             if (res.data.modifiedCount > 0) {
                 Swal.fire({
                     title: 'Success!',

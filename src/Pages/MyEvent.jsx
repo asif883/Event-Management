@@ -11,7 +11,7 @@ const MyEvent = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/event/${user?.email}`);
+      const res = await axios.get(`https://event-management-server-blond.vercel.app/event/${user?.email}`);
       setEvents(res.data);
     } catch (error) {
       console.log(error);
@@ -35,7 +35,7 @@ const MyEvent = () => {
       confirmButtonText: "Yes, remove it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/delete/${id}`)
+        axios.delete(`https://event-management-server-blond.vercel.app/delete/${id}`)
           .then(() => {
            setEvents(events.filter(item => item._id !== id));
             Swal.fire({

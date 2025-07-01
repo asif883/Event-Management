@@ -14,7 +14,7 @@ const Events = () => {
 
   const fetchEvents = async () => {
     try {
-      let url = 'http://localhost:5000/events';
+      let url = 'https://event-management-server-blond.vercel.app/events';
       const queryParams = [];
 
       if (searchTerm) {
@@ -56,7 +56,7 @@ const Events = () => {
   const handleJoin = async (id) => {
   
      try {
-       const res = await axios.patch(`http://localhost:5000/events/join/${id}`, {email: user?.email})
+       const res = await axios.patch(`https://event-management-server-blond.vercel.app/events/join/${id}`, {email: user?.email})
        console.log(res.data);
        fetchEvents()
 
