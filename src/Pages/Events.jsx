@@ -76,20 +76,20 @@ const Events = () => {
           type="text"
           value={searchTerm}
           placeholder="Search by title"
-          className="border rounded px-3 py-2"
+          className="border border-gray-400 font-semibold focus:outline-1 focus:outline-teal-100 rounded px-3 py-2"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         <input
           type="date"
           value={selectedDate}
-          className="border rounded px-3 py-2"
+          className="border border-gray-400 font-semibold focus:outline-1 focus:outline-teal-100 rounded px-3 py-2"
           onChange={(e) => setSelectedDate(e.target.value)}
         />
 
         <select
           value={filter}
-          className="border rounded px-3 py-2"
+          className="border border-gray-400 font-semibold focus:outline-1 focus:outline-teal-100 rounded px-3 py-2"
           onChange={(e) => setFilter(e.target.value)}
         >
           <option value="all">All</option>
@@ -102,7 +102,7 @@ const Events = () => {
 
         <button
           onClick={handleClearFilters}
-          className="flex items-center justify-center gap-1 border py-2 cursor-pointer rounded hover:bg-gray-100"
+          className="flex items-center justify-center gap-1 border border-gray-400 font-semibold focus:outline-1 focus:outline-teal-100 py-2 cursor-pointer rounded hover:bg-gray-100"
         >
           Clear Filters <RxCross2 size={18} />
         </button>

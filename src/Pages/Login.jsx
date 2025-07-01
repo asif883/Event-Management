@@ -4,9 +4,10 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const Login = () => {
-  const { login } = useAuth()
+  const { login , googleLogin } = useAuth()
   const navigate = useNavigate()
   const {
     register,
@@ -44,6 +45,29 @@ const Login = () => {
   };
 
   const handleGoogleLogin =  () => {
+      googleLogin()
+      .then( res => {
+            const name = res?.user?.displayName
+            const email = res?.user?.email
+            const photoURL = res?.user?.photoURL
+            const userInfo= {
+                name,
+                email,
+                photoURL
+              }
+              axios.post('http://localhost:5000/add-user', userInfo)
+              .then(() => {
+                Swal.fire({
+                  title: 'Success!',
+                  text: 'Login Successful',
+                  icon: 'success',
+                  confirmButtonText: 'Ok',
+                  confirmButtonColor: '#009689'
+                  }).then(()=> {
+                    navigate(location?.state ? location?.state : '/');
+                  })
+              })
+      })
   };
 
   return (
@@ -61,7 +85,7 @@ const Login = () => {
                 required: 'Email is required',
               })}
               placeholder="you@example.com"
-              className={`w-full px-4 py-2 border rounded-md ${
+              className={`w-full px-4 py-2 border rounded-md focus:outline-1 focus:outline-teal-700 ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               }`}
             />
@@ -79,7 +103,7 @@ const Login = () => {
                 required: 'Password is required',
               })}
               placeholder="Enter your password"
-              className={`w-full px-4 py-2 border rounded-md ${
+              className={`w-full px-4 py-2 border rounded-md focus:outline-1 focus:outline-teal-700 ${
                 errors.password ? 'border-red-500' : 'border-gray-300'
               }`}
             />

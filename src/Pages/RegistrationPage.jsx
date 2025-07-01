@@ -71,7 +71,7 @@ const RegistrationPage = () => {
               type="text"
               {...register('name', { required: 'Name is required' })}
               placeholder="Your full name"
-              className={`w-full px-4 py-2 border rounded-md ${
+              className={`w-full px-4 py-2 focus:outline-1 focus:outline-teal-700 border rounded-md ${
                 errors.name ? 'border-red-500' : 'border-gray-300'
               }`}
             />
@@ -89,7 +89,7 @@ const RegistrationPage = () => {
                 required: 'Email is required',
               })}
               placeholder="you@example.com"
-              className={`w-full px-4 py-2 border rounded-md ${
+              className={`w-full px-4 py-2 border rounded-md focus:outline-1 focus:outline-teal-700 ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               }`}
             />
@@ -111,7 +111,7 @@ const RegistrationPage = () => {
                 }
               })}
               placeholder="Create a password"
-              className={`w-full px-4 py-2 border rounded-md ${
+              className={`w-full px-4 py-2 border rounded-md focus:outline-1 focus:outline-teal-700 ${
                 errors.password ? 'border-red-500' : 'border-gray-300'
               }`}
             />
@@ -129,7 +129,7 @@ const RegistrationPage = () => {
                 required: 'Photo URL is required',
               })}
               placeholder="https://example.com/your-photo.jpg"
-              className={`w-full px-4 py-2 border rounded-md ${
+              className={`w-full px-4 py-2 border focus:outline-1 focus:outline-teal-700 rounded-md ${
                 errors.photo ? 'border-red-500' : 'border-gray-300'
               }`}
             />

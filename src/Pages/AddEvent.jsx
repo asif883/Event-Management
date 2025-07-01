@@ -49,7 +49,7 @@ const AddEvent = () => {
             <input
                 type="text"
                 {...register('title', { required: true })}
-                className="w-full border border-teal-500 focus:outline-none focus:ring focus:ring-teal-700 rounded px-3 py-2"
+                className="w-full border border-teal-500 focus:outline-1 focus:outline-teal-700 rounded px-3 py-2"
             />
             {errors.title && <span className="text-red-500">Event Title is required</span>}
             </div>
@@ -60,7 +60,7 @@ const AddEvent = () => {
             <input
                 type="text"
                 {...register('name', { required: true })}
-                className="w-full border border-teal-500 focus:outline-none focus:ring focus:ring-teal-700 rounded px-3 py-2"
+                className="w-full border border-teal-500 focus:outline-1 focus:outline-teal-700 rounded px-3 py-2"
             />
             {errors.name && <span className="text-red-500">Name is required</span>}
             </div>
@@ -71,7 +71,7 @@ const AddEvent = () => {
             <input
                 type="datetime-local"
                 {...register('datetime', { required: true })}
-                className="w-full border border-teal-500 focus:outline-none focus:ring focus:ring-teal-700 rounded px-3 py-2"
+                className="w-full border border-teal-500 focus:outline-1 focus:outline-teal-700 rounded px-3 py-2"
             />
             {errors.datetime && <span className="text-red-500">Date & Time is required</span>}
             </div>
@@ -82,7 +82,7 @@ const AddEvent = () => {
             <input
                 type="text"
                 {...register('location', { required: true })}
-                className="w-full border border-teal-500 focus:outline-none focus:ring focus:ring-teal-700 rounded px-3 py-2"
+                className="w-full border border-teal-500 focus:outline-1 focus:outline-teal-700 rounded px-3 py-2"
             />
             {errors.location && <span className="text-red-500">Location is required</span>}
             </div>
@@ -93,7 +93,7 @@ const AddEvent = () => {
           <label className="font-medium mb-1">Description</label>
           <textarea
             {...register('description', { required: true })}
-            className="w-full border border-teal-500 focus:outline-none focus:ring focus:ring-teal-700 rounded px-3 py-2"
+            className="w-full border border-teal-500 focus:outline-1 focus:outline-teal-700 rounded px-3 py-2"
             rows={4}
           />
           {errors.description && <span className="text-red-500">Description is required</span>}

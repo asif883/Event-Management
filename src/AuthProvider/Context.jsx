@@ -1,10 +1,11 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { app } from '../Firebase/FirebaseConfig';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
+const googleProvider = new GoogleAuthProvider()
 
 const Context = ({children}) => {
     const [ user , setUser ] = useState(null)
@@ -38,12 +39,19 @@ const Context = ({children}) => {
         return signOut(auth)
     }
 
+    // google login
+    const googleLogin = () =>{
+        setLoading(true)
+        return signInWithPopup(auth , googleProvider)
+    }
+
     const authInfo ={
         user,
         loading,
         createUser,
         login, 
-        logout
+        logout,
+        googleLogin
     }
     return (
         <AuthContext.Provider value={authInfo}>
