@@ -4,6 +4,7 @@ import '../../CSS/nav.css'
 import '../../CSS/font.css'
 import useUserData from '../../Hooks/useUserData';
 import useAuth from '../../Hooks/useAuth';
+import logo from '../../assets/planzone-logo.png'
 
 const routes = [
     {id: 1, name: "Home" , path: '/'},
@@ -22,7 +23,7 @@ const Navbar = () => {
 
     return (
         <div className='shadow'>
-            <div className="navbar max-w-7xl mx-auto px-6">
+            <div className="navbar max-w-7xl mx-auto px-4 md:px-6">
                 <div className="navbar-start">
                     <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -36,7 +37,10 @@ const Navbar = () => {
                     }
                     </ul>
                     </div>
-                    <Link to={'/'} className="text-3xl font-bold text-teal-600 font">Planzone</Link>
+                     <div className='flex items-center gap-1'>
+                        <img className='w-12 h-12 rounded-full' src={logo} alt="" />
+                        <Link to={'/'} className="text-3xl font-bold text-teal-600 font">Planzone</Link>
+                     </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="flex items-center gap-7 text-gray-700 font-semibold font text-lg">

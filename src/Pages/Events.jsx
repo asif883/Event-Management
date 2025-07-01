@@ -3,6 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import { RxCross2 } from "react-icons/rx";
 import useAuth from '../Hooks/useAuth';
+import Loading from '../Components/Shared/Loading';
 
 const Events = () => {
   const {user} = useAuth()
@@ -11,8 +12,10 @@ const Events = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
   const [selectedDate, setSelectedDate] = useState('');
+  const [ loading , setLoading ] = useState(true)
 
   const fetchEvents = async () => {
+    const token = localStorage.getItem('access-token');
     try {
       let url = 'https://event-management-server-blond.vercel.app/events';
       const queryParams = [];
@@ -36,8 +39,9 @@ const Events = () => {
         url += `?${queryParams.join('&')}`;
       }
 
-      const res = await axios.get(url);
+      const res = await axios.get(url, {headers: {Authorization: `Bearer ${token}`}});
       setEvents(res.data);
+      setLoading(false)
     } catch (error) {
       console.error('Error fetching events:', error);
     }
@@ -109,40 +113,45 @@ const Events = () => {
       </div>
 
       {/* event card */}
-      {events.length === 0 ? (
+        {
+          loading ? <Loading/> :
+          <>
+        {events.length === 0 ? (
         <p className=" flex items-center justify-center min-h-screen text-red-600 text-lg font-semibold">No events found that matching your criteria.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {events.map((event) => (
-            <div key={event._id} className="border border-gray-200 p-5 rounded shadow bg-teal-50">
-              <h2 className="text-xl font-semibold">{event.title}</h2>
-              <p className="text-sm text-gray-600 mb-1">
-                Posted by: <span className="font-medium">{event.name}</span>
-              </p>
-              <p className="text-sm">
-                <strong>Date & Time:</strong>{' '}
-                {dayjs(event.datetime).format('DD MMM YYYY, h:mm A')}
-              </p>
-              <p className="text-sm"><strong>Location:</strong> {event.location}</p>
-              <p className="text-sm mt-2">{event.description}</p>
-              <p className="text-sm mt-2 text-gray-600 font-medium">
-                Attendees: {event.attendeeCount}
-              </p>
-             <button
-                disabled={event.joinedUsers?.includes(user?.email)}
-                onClick={() => handleJoin(event._id)}
-                className={`mt-3 px-4 py-2 rounded  ${
-                  event.joinedUsers?.includes(user?.email)
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-teal-600 hover:bg-teal-700 cursor-pointer'
-                } text-white`}
-                >
-                {event.joinedUsers?.includes(user?.email) ? 'Joined' : 'Join Event'}
-            </button>
-            </div>
-          ))}
-        </div>
-      )}
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {events.map((event) => (
+              <div key={event._id} className="border border-gray-200 p-5 rounded shadow bg-teal-50">
+                <h2 className="text-xl font-semibold">{event.title}</h2>
+                <p className="text-sm text-gray-600 mb-1">
+                  Posted by: <span className="font-medium">{event.name}</span>
+                </p>
+                <p className="text-sm">
+                  <strong>Date & Time:</strong>{' '}
+                  {dayjs(event.datetime).format('DD MMM YYYY, h:mm A')}
+                </p>
+                <p className="text-sm"><strong>Location:</strong> {event.location}</p>
+                <p className="text-sm mt-2">{event.description}</p>
+                <p className="text-sm mt-2 text-gray-600 font-medium">
+                  Attendees: {event.attendeeCount}
+                </p>
+              <button
+                  disabled={event.joinedUsers?.includes(user?.email)}
+                  onClick={() => handleJoin(event._id)}
+                  className={`mt-3 px-4 py-2 rounded  ${
+                    event.joinedUsers?.includes(user?.email)
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-teal-600 hover:bg-teal-700 cursor-pointer'
+                  } text-white`}
+                  >
+                  {event.joinedUsers?.includes(user?.email) ? 'Joined' : 'Join Event'}
+              </button>
+              </div>
+            ))}
+          </div>
+        )}
+          </>
+        }
     </div>
   );
 };

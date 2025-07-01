@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { app } from '../Firebase/FirebaseConfig';
+import axios from 'axios';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null)
@@ -14,7 +15,21 @@ const Context = ({children}) => {
     useEffect(()=> {
         const unsubscribe = onAuthStateChanged(auth , currentUser => {
             setUser(currentUser)
-            setLoading(false)
+
+            if(currentUser){
+                axios.post(`https://event-management-server-blond.vercel.app/authentication`, {email: currentUser?.email})
+                .then(res => {
+                    if(res.data){
+                        localStorage.setItem('access-token', res?.data?.token)
+                        setLoading(false)
+                    }
+                }) 
+            }
+            else{
+                localStorage.removeItem('access-token')
+                setLoading(false)
+            }
+      
         })
         return ()=> {
             unsubscribe()
